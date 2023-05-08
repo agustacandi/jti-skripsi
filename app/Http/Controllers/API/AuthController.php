@@ -14,12 +14,11 @@ class AuthController extends Controller
 {
     public function login(Request $request) {
         try {
-            $request->validate([
+            $credentials = $request->validate([
                 'email' => ['required', 'email', 'string'],
                 'password' => ['required', 'string']
             ]);
 
-            $credentials = request(['email', 'password']);
 
             if (!Auth::attempt($credentials)) {
                 return ResponseFormatter::error([
@@ -27,7 +26,7 @@ class AuthController extends Controller
                 ], 'Authentication failed', 500);
             }
 
-            $user = User::where('nim', $request->nim)->first();
+            $user = User::where('email', $request->email)->first();
 
             if (!Hash::check($request->password, $user->password)) {
                 return ResponseFormatter::error([
@@ -46,7 +45,7 @@ class AuthController extends Controller
             return ResponseFormatter::error([
                 'message' => 'Something went wrong',
                 'error' => $error
-            ], 'Authentication failed', 500);
+            ], 'Authentication failedddd', 500);
         }
     }
 }

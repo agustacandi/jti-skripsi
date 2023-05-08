@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\DataTables\BroadcastDataTable;
 use App\Models\Broadcast;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BroadcastController extends Controller
 {
@@ -13,7 +15,8 @@ class BroadcastController extends Controller
      */
     public function index(BroadcastDataTable $dataTable)
     {
-        return $dataTable->render('dashboard.broadcast.index');
+        $broadcasts = DB::table('broadcasts')->where('dosen_id', Auth::guard('dosen')->user()->id)->orderBy('created_at', 'DESC')->get();
+        return view('dashboard.broadcast.index', compact('broadcasts'));
     }
 
     /**
