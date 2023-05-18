@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BroadcastController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\SkripsiController;
 use App\Imports\MahasiswaImport;
 use App\Models\ProgramStudi;
@@ -58,7 +59,6 @@ Route::middleware('auth:web,dosen')->group(function () {
         })->name('mahasiswa.import');
 
         Route::get('/mahasiswa/download-format-excel', function () {
-            dd(public_path('assets/file/format-excel-mahasiswa.xlsx'));
             return Storage::download(public_path('assets/file/format-excel-mahasiswa.xlsx'));
         })->name('excel.mahasiswa');
 
@@ -69,7 +69,7 @@ Route::middleware('auth:web,dosen')->group(function () {
         Route::resource('/broadcast', BroadcastController::class);
 
         // Dashboard Program Studi Resource Route
-        Route::resource('/program-studi', ProgramStudi::class);
+        Route::resource('/program-studi', ProgramStudiController::class);
     });
 
     // Dashboard Skripsi Route
@@ -77,8 +77,11 @@ Route::middleware('auth:web,dosen')->group(function () {
 
     Route::prefix('dashboard/skripsi')->group(function () {
 
-        Route::get('pengajuan-judul', [SkripsiController::class, 'pengajuan'])->name('skripsi');
+        Route::get('input-ta', [SkripsiController::class, 'indexInputTA'])->name('input.ta');
+        Route::post('input-ta', [SkripsiController::class, 'storeInputTA'])->name('store.ta');
 
+        Route::get('history-ta', [SkripsiController::class, 'historyTA'])->name('history.ta');
+        Route::get('list-ta', [SkripsiController::class, 'listTA'])->name('list.ta');
     });
 
 

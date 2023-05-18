@@ -8,8 +8,6 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class UserDataTable extends DataTable
@@ -24,7 +22,10 @@ class UserDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($row) {
                 return '
-                      <a href="' . route('mahasiswa.show', $row->id) . '" class="btn icon btn-sm btn-success"
+                    <a href="https://wa.me/' . $row->phone_number . '" class="btn icon btn-sm btn-success">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                      <a href="' . route('mahasiswa.show', $row->id) . '" class="btn icon btn-sm btn-warning"
                         ><i class="fas fa-eye"></i
                       ></a>
                       <a href="' . route('mahasiswa.edit', $row->id) . '" class="btn icon btn-sm btn-primary"
@@ -83,9 +84,11 @@ class UserDataTable extends DataTable
         return [
 
             Column::make('DT_RowIndex')->title('No')->searchable(false),
-            Column::make('name'),
+            Column::make('name')->title('Nama'),
             Column::make('nim'),
             Column::make('email'),
+            Column::make('address')->title('Alamat'),
+            Column::make('phone_number')->title('No. Telepon'),
             Column::make('created_at'),
             Column::computed('action')
                 ->exportable(false)

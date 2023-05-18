@@ -63,6 +63,13 @@
                 </a>
             </li>
 
+            <li class="sidebar-item {{ Request::is('dashboard/program-studi*') ? 'active' : '' }}">
+                <a href="{{ route('program-studi.index') }}" class="sidebar-link">
+                    <i class="fas fa-tags"></i>
+                    <span>Program Studi</span>
+                </a>
+            </li>
+
             <li class="sidebar-item {{ Request::is('dashboard/broadcast*') ? 'active' : '' }}">
                 <a href="{{ route('broadcast.index') }}" class="sidebar-link">
                     <i class="fas fa-bullhorn"></i>
@@ -76,9 +83,17 @@
                     <span>Skripsi</span>
                 </a>
 
-                <ul class="submenu active">
-                    <li class="submenu-item active">
-                        <a href="{{ route('skripsi') }}" class="submenu-link">Pengajuan Skripsi</a>
+                <ul class="submenu {{ Request::is('dashboard/skripsi*') ? 'active' : '' }}">
+                    <li class="submenu-item {{ Request::is('dashboard/skripsi/input-ta') ? 'active' : '' }}">
+                        <a href="{{ route('input.ta') }}" class="submenu-link">Input TA</a>
+                    </li>
+
+                    <li class="submenu-item {{ Request::is('dashboard/skripsi/history-ta') ? 'active' : '' }}">
+                        <a href="{{ route('history.ta') }}" class="submenu-link">Riwayat Input TA</a>
+                    </li>
+
+                    <li class="submenu-item {{ Request::is('dashboard/skripsi/list-ta') ? 'active' : '' }}">
+                        <a href="{{ route('list.ta') }}" class="submenu-link">List TA</a>
                     </li>
 
                     <li class="submenu-item">

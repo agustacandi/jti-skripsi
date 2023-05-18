@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Broadcast Page')
+@section('title', 'Tambah Program Studi Page')
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <divn class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Tambah Broadcast Page</h3>
-                    <p class="text-subtitle text-muted">Halaman untuk menambah data broadcast</p>
+                    <h3>Tambah Program Studi Page</h3>
+                    <p class="text-subtitle text-muted">Halaman untuk menambah data program studi</p>
                 </divn>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -17,9 +17,7 @@
                                 <a href="{{ route('dashboard') }}">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item" aria-current="page">
-                                <a href="{{ route('broadcast.index') }}">
-                                    Broadcast
-                                </a>
+                                <a href="{{ route('program-studi.index') }}">Program Studi</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
                                 Tambah
@@ -34,21 +32,21 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Form Tambah Data Broadcast</h4>
+                            <h4 class="card-title">Form Tambah Data Program Studi</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form class="form" action="{{ route('broadcast.store') }}" method="POST"
-                                      enctype="multipart/form-data">
+                                <form class="form" action="{{ route('program-studi.store') }}" method="POST"
+                                      >
                                     @csrf
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="title">Judul</label>
+                                                <label for="title">Nama Program Studi</label>
                                                 <input type="text" id="title"
-                                                       class="form-control @error('title') is-invalid @enderror"
-                                                       placeholder="Judul" name="title" value="{{ old('title') }}" />
-                                                @error('title')
+                                                       class="form-control @error('name') is-invalid @enderror"
+                                                       placeholder="Nama" name="name" value="{{ old('name') }}" />
+                                                @error('name')
                                                 <div class="invalid-feedback">
                                                     <i class="bx bx-radio-circle"></i>
                                                     {{ $message }}
@@ -56,13 +54,13 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <input type="hidden" name="dosen_id" value="{{Auth::guard('dosen')->id()}}">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="body">Isi Broadcast</label>
-                                                <textarea id="body" class="form-control @error('body') is-invalid @enderror" spellcheck="false" rows="4"
-                                                          name="body" placeholder="Masukan isi broadcast...">{{ old('body') }}</textarea>
-                                                @error('body')
+                                                <label for="code">Kode Program Studi</label>
+                                                <input type="text" id="code"
+                                                       class="form-control @error('code') is-invalid @enderror"
+                                                       placeholder="Kode" name="code" value="{{ old('code') }}" />
+                                                @error('code')
                                                 <div class="invalid-feedback">
                                                     <i class="bx bx-radio-circle"></i>
                                                     {{ $message }}
@@ -70,22 +68,6 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-check form-switch">
-                                                <input
-                                                    class="form-check-input"
-                                                    type="checkbox"
-                                                    id="flexSwitchCheckDefault"
-                                                    name="is_published"
-                                                    value="1"
-                                                    {{old('is_published') == 1 ? 'checked' : ''}}
-                                                />
-                                                <label
-                                                    class="form-check-label"
-                                                    for="flexSwitchCheckDefault"
-                                                >Publish Broadcast</label
-                                                >
-                                            </div>
                                         </div>
                                         <div class="col-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1">

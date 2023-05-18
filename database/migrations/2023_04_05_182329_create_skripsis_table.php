@@ -12,13 +12,19 @@ return new class extends Migration {
     {
         Schema::create('skripsis', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('abstract');
+            $table->string('judul_1');
+            $table->text('deskripsi_1');
+            $table->string('output_1');
+            $table->string('judul_2');
+            $table->text('deskripsi_2');
+            $table->string('output_2');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
-            $table->unsignedBigInteger('dosen_id');
-            $table->foreign('dosen_id')->references('id')->on('dosens')->onDelete('restrict');
-            $table->boolean('is_accepted')->default(false);
+            $table->unsignedBigInteger('pembimbing_1');
+            $table->foreign('pembimbing_1')->references('id')->on('dosens')->onDelete('restrict');
+            $table->unsignedBigInteger('pembimbing_2');
+            $table->foreign('pembimbing_2')->references('id')->on('dosens')->onDelete('restrict');
+            $table->string('status')->default('PENDING');
             $table->timestamps();
         });
     }

@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Input Tugas Akhir Page')
+@section('title', 'Riwayat Input Tugas Akhir Page')
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Input Tugas Akhir Page</h3>
+                    <h3>Riwayat Input Tugas Akhir Page</h3>
                     <p class="text-subtitle text-muted">Halaman untuk mahasiswa input tugas akhir dan memilih dosen
                         pembimbing.</p>
                 </div>
@@ -17,7 +17,7 @@
                             <li class="breadcrumb-item">
                                 <a href="{{ route('dashboard') }}">Dashboard</a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Input TA</li>
+                            <li class="breadcrumb-item active" aria-current="page">Riwayat Input TA</li>
                         </ol>
                     </nav>
                 </div>
@@ -41,7 +41,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Form Input Tugas Akhir</h4>
+                            <h4 class="card-title">Riwayat Input Tugas Akhir</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">

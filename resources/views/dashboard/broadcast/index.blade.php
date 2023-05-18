@@ -27,7 +27,10 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Tabel Broadcast</h4>
+                                <div class="d-lg-flex justify-content-lg-between">
+                                    <h4 class="card-title">Tabel Broadcast</h4>
+                                    <a href="{{ route('broadcast.create') }}" class="btn btn-primary">Tambah</a>
+                                </div>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
@@ -37,7 +40,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Judul</th>
-                                                <th>Status Publish</th>
+                                                <th>Status</th>
                                                 <th>Created At</th>
                                                 <th>Action</th>
                                             </tr>
@@ -85,6 +88,7 @@
         $('.broadcast-table').on('click', '#delete-button', function() {
             let data = $(this).data();
             let id = data.id;
+            console.log(id)
 
             Swal.fire({
                 title: 'Konfirmasi',
@@ -106,7 +110,7 @@
                                 res.message,
                                 res.status
                             )
-
+                            location.reload()
                         }
                     })
                 }

@@ -48,6 +48,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function dosen() {
+        return $this->belongsTo(Dosen::class);
+    }
+
     public function program_studi(): BelongsTo
     {
         return $this->belongsTo(ProgramStudi::class);

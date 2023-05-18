@@ -25,6 +25,19 @@
                 </div>
             </div>
         </div>
+        @if(\Illuminate\Support\Facades\Session::has('message'))
+            <div
+                class="alert alert-success alert-dismissible show fade"
+            >
+                {{\Illuminate\Support\Facades\Session::get('message')}}
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                ></button>
+            </div>
+        @endif
         <section class="section">
             <div class="card">
                 <div class="card-header">

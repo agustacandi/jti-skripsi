@@ -25,6 +25,9 @@ class DosenDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($row) {
                 return '
+                    <a href="https://wa.me/' . $row->phone_number . '" class="btn icon btn-sm btn-success">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
                       <a href="' . route('dosen.show', $row->id) . '" class="btn icon btn-sm btn-success"
                         ><i class="fas fa-eye"></i
                       ></a>
@@ -70,7 +73,6 @@ class DosenDataTable extends DataTable
             ->buttons([
                 Button::make('excel'),
                 Button::make('csv'),
-                Button::make('pdf'),
                 Button::make('print'),
                 Button::make('reset'),
                 Button::make('reload')
@@ -87,6 +89,8 @@ class DosenDataTable extends DataTable
             Column::make('name'),
             Column::make('nip'),
             Column::make('email'),
+            Column::make('address')->title('Alamat'),
+            Column::make('phone_number')->title('No. Telepon'),
             Column::make('created_at'),
             Column::computed('action')
                 ->exportable(false)

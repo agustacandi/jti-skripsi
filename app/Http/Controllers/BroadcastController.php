@@ -32,7 +32,22 @@ class BroadcastController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:50',
+            'body' => 'required|string',
+            'is_published' => 'boolean',
+            'dosen_id' => 'required'
+        ]);
+
+        $isChecked = $request->has('is_published');
+
+        $data = $request->all();
+
+        $data['is_published'] = $isChecked;
+
+        Broadcast::create($data);
+
+       return redirect()->route('broadcast.index')->with('message', 'Berhasil menambahkan broadcast.');
     }
 
     /**
@@ -40,7 +55,7 @@ class BroadcastController extends Controller
      */
     public function show(Broadcast $broadcast)
     {
-        //
+        return view('dashboard.broadcast.detail', compact('broadcast'));
     }
 
     /**
@@ -48,7 +63,7 @@ class BroadcastController extends Controller
      */
     public function edit(Broadcast $broadcast)
     {
-        //
+        return view('dashboard.broadcast.edit', compact('broadcast'));
     }
 
     /**
@@ -56,7 +71,9 @@ class BroadcastController extends Controller
      */
     public function update(Request $request, Broadcast $broadcast)
     {
-        //
+        $broadcast->update($request->all());
+
+        return redirect()->route('broadcast.index')->with('message', 'Berhasil memperbarui data');
     }
 
     /**
@@ -64,6 +81,10 @@ class BroadcastController extends Controller
      */
     public function destroy(Broadcast $broadcast)
     {
-        //
+        $broadcast->delete();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Berhasil menghapus data.'
+        ]);
     }
 }
