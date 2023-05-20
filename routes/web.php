@@ -11,6 +11,7 @@ use App\Models\ProgramStudi;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -52,7 +53,7 @@ Route::middleware('auth:web,dosen')->group(function () {
         Route::resource('/mahasiswa', MahasiswaController::class);
         Route::post('/mahasiswa/import', function (Request $request) {
             $request->validate([
-               'file' => 'required',
+                'file' => 'required',
             ]);
             Excel::import(new MahasiswaImport, $request->file('file'));
             return redirect()->route('mahasiswa.index')->with('message', 'Berhasil mengimpor data.');
@@ -82,6 +83,12 @@ Route::middleware('auth:web,dosen')->group(function () {
 
         Route::get('history-ta', [SkripsiController::class, 'historyTA'])->name('history.ta');
         Route::get('list-ta', [SkripsiController::class, 'listTA'])->name('list.ta');
+
+        Route::get('status', [SkripsiController::class, 'indexStatus'])->name('index.status');
+
+        Route::get('monitoring', [SkripsiController::class, 'indexMonitoring'])->name('index.monitoring');
+
+        Route::get('pengajuan', [SkripsiController::class, 'indexPengajuan'])->name('index.pengajuan');
     });
 
 

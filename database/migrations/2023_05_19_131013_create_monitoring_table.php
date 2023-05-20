@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('statuses', function (Blueprint $table) {
+        Schema::create('monitoring', function (Blueprint $table) {
             $table->id();
-            $table->enum('name', ['Belum input judul TA', 'Sudah input judul TA', 'Sudah Sempro', 'Sudah melakukan sidang', 'Lulus dengan revisi', 'Belum Lulus']);
+            $table->string('deskripsi');
             $table->string('user_id');
             $table->timestamps();
         });
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('statuses');
+        Schema::dropIfExists('monitoring');
     }
 };

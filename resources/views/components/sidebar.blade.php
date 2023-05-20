@@ -96,12 +96,12 @@
                         <a href="{{ route('list.ta') }}" class="submenu-link">List TA</a>
                     </li>
 
-                    <li class="submenu-item">
-                        <a href="layout-vertical-1-column.html" class="submenu-link">1 Column</a>
+                    <li class="submenu-item {{ Request::is('dashboard/skripsi/status') ? 'active' : '' }}">
+                        <a href="{{ route('index.status') }}" class="submenu-link">Status Skripsi</a>
                     </li>
 
-                    <li class="submenu-item">
-                        <a href="layout-vertical-navbar.html" class="submenu-link">Vertical Navbar</a>
+                    <li class="submenu-item {{ Request::is('dashboard/skripsi/monitoring') ? 'active' : '' }}">
+                        <a href="{{ route('index.monitoring') }}" class="submenu-link">Monitoring Skripsi</a>
                     </li>
 
                     <li class="submenu-item">

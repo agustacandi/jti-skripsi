@@ -15,7 +15,8 @@ class SkripsiController extends Controller
         return view('dashboard.skripsi.index', compact('dosens'));
     }
 
-    public function storeInputTA(Request $request) {
+    public function storeInputTA(Request $request)
+    {
         $request->validate([
             'judul_1' => 'required|string|unique:skripsis|max:200',
             'output_1' => 'required|string|max:255',
@@ -28,16 +29,16 @@ class SkripsiController extends Controller
             'user_id' => 'required',
         ]);
 
-        if($request->judul_1 && $request->judul_2) {
+        if ($request->judul_1 && $request->judul_2) {
             $judul1 = explode(' ', $request->judul_1);
             $judul2 = explode(' ', $request->judul_2);
 
-            if(count($judul1) > 20 || count($judul2) > 20) {
+            if (count($judul1) > 20 || count($judul2) > 20) {
                 return redirect()->route('input.ta')->with('message', 'Judul TA tidak boleh lebih dari 20 kata.');
             }
         }
 
-        if($request->pembimbing_1 == $request->pembimbing_2) {
+        if ($request->pembimbing_1 == $request->pembimbing_2) {
             return redirect()->route('input.ta')->with('message', 'Dosen pembimbing 1 dan 2 tidak boleh sama.');
         }
 
@@ -51,7 +52,26 @@ class SkripsiController extends Controller
         return view('dashboard.skripsi.history', compact('dosens'));
     }
 
-    public function listTA(SkripsiDataTable $dataTable) {
+    public function listTA(SkripsiDataTable $dataTable)
+    {
         return $dataTable->render('dashboard.skripsi.list');
+    }
+
+    public function indexStatus()
+    {
+        $status = DB::table('statuses')->get('id', 'name');
+        return view('dashboard.skripsi.status', compact('status'));
+    }
+
+    public function indexMonitoring()
+    {
+        $monitoring = DB::table('monitoring')->get('id', 'name');
+        return view('dashboard.skripsi.monitoring', compact('monitoring'));
+    }
+
+    public function indexPengajuan()
+    {
+        $pengajuan = DB::table('pengajuan')->get('id', 'name');
+        return view('dashboard.skripsi.monitoring', compact('pengajuan'));
     }
 }
