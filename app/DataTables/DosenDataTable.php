@@ -28,7 +28,7 @@ class DosenDataTable extends DataTable
                     <a href="https://wa.me/' . $row->phone_number . '" class="btn icon btn-sm btn-success">
                         <i class="fab fa-whatsapp"></i>
                     </a>
-                      <a href="' . route('dosen.show', $row->id) . '" class="btn icon btn-sm btn-success"
+                      <a href="' . route('dosen.show', $row->id) . '" class="btn icon btn-sm btn-warning"
                         ><i class="fas fa-eye"></i
                       ></a>
                       <a href="' . route('dosen.edit', $row->id) . '" class="btn icon btn-sm btn-primary"

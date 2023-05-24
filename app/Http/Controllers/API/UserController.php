@@ -13,9 +13,7 @@ class UserController extends Controller
     public function getDosen(Request $request) {
         try {
             $dosen = DB::table('dosens')->paginate($request->input('limit'));
-            return ResponseFormatter::success([
-                'user' => $dosen,
-            ], 'Success get data');
+            return $dosen;
         } catch (Exception $error) {
             return ResponseFormatter::error([
                 'message' => 'Something went wrong',

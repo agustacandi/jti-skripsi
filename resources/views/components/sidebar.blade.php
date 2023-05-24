@@ -77,6 +77,43 @@
                 </a>
             </li>
 
+            <li class="sidebar-item {{ Request::is('dashboard/status*') ? 'active' : '' }} has-sub">
+                <a href="#" class="sidebar-link">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Status</span>
+                </a>
+
+                <ul class="submenu {{ Request::is('dashboard/status*') ? 'active' : '' }}">
+                    <li class="submenu-item {{ Request::is('dashboard/skripsi') ? 'active' : '' }}">
+                        <a href="{{ route('status.index') }}" class="submenu-link">List Status Mahasiswa</a>
+                    </li>
+
+                    <li class="submenu-item {{ Request::is('dashboard/skripsi/history-ta') ? 'active' : '' }}">
+                        <a href="{{ route('history.ta') }}" class="submenu-link">Riwayat Input TA</a>
+                    </li>
+
+                    <li class="submenu-item {{ Request::is('dashboard/skripsi/list-ta') ? 'active' : '' }}">
+                        <a href="{{ route('list.ta') }}" class="submenu-link">List TA</a>
+                    </li>
+
+                    <li class="submenu-item {{ Request::is('dashboard/skripsi/status') ? 'active' : '' }}">
+                        <a href="{{ route('index.status') }}" class="submenu-link">Status Skripsi</a>
+                    </li>
+
+                    <li class="submenu-item {{ Request::is('dashboard/skripsi/monitoring') ? 'active' : '' }}">
+                        <a href="{{ route('index.monitoring') }}" class="submenu-link">Monitoring Skripsi</a>
+                    </li>
+
+                    <li class="submenu-item">
+                        <a href="layout-rtl.html" class="submenu-link">RTL Layout</a>
+                    </li>
+
+                    <li class="submenu-item">
+                        <a href="layout-horizontal.html" class="submenu-link">Horizontal Menu</a>
+                    </li>
+                </ul>
+            </li>
+
             <li class="sidebar-item {{ Request::is('dashboard/skripsi*') ? 'active' : '' }} has-sub">
                 <a href="#" class="sidebar-link">
                     <i class="fas fa-book"></i>

@@ -19,6 +19,8 @@ return new class extends Migration {
             $table->string('avatar')->nullable();
             $table->string('gender')->nullable();
             $table->string('phone_number')->unique()->nullable();
+            $table->unsignedBigInteger('program_studi_id')->after('phone_number');
+            $table->foreign('program_studi_id')->references('id')->on('program_studis')->onDelete('restrict');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

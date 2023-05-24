@@ -51,6 +51,7 @@ Route::middleware('auth:web,dosen')->group(function () {
     Route::prefix('dashboard')->group(function () {
         // Dashboard Mahasiswa Resource Route
         Route::resource('/mahasiswa', MahasiswaController::class);
+        Route::resource('/mahasiswa/status', MahasiswaController::class);
         Route::post('/mahasiswa/import', function (Request $request) {
             $request->validate([
                 'file' => 'required',
@@ -95,13 +96,16 @@ Route::middleware('auth:web,dosen')->group(function () {
     // Dashboard Profile
     Route::get('profile', function () {
         $user = null;
+        $status = null;
 
         if (Auth::check()) {
             $user = Auth::user();
+            $status = 'mahasiswa';
         } else if (Auth::guard('dosen')->check()) {
             $user = Auth::guard('dosen')->user();
+            $status = 'dosen';
         }
 
-        return view('dashboard.profile', compact('user'));
+        return view('dashboard.profile', compact('user', 'status'));
     })->name('profile');
 });

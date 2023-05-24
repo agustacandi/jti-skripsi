@@ -15,8 +15,7 @@ class BroadcastController extends Controller
      */
     public function index(BroadcastDataTable $dataTable)
     {
-        $broadcasts = DB::table('broadcasts')->where('dosen_id', Auth::guard('dosen')->user()->id)->orderBy('created_at', 'DESC')->get();
-        return view('dashboard.broadcast.index', compact('broadcasts'));
+        return $dataTable->render('dashboard.broadcast.index');
     }
 
     /**

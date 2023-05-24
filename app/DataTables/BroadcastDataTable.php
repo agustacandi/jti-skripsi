@@ -4,12 +4,11 @@ namespace App\DataTables;
 
 use App\Models\Broadcast;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class BroadcastDataTable extends DataTable
@@ -50,7 +49,8 @@ class BroadcastDataTable extends DataTable
      */
     public function query(Broadcast $model): QueryBuilder
     {
-        return $model->newQuery();
+        $broadcast = $model->newQuery();
+        return  $broadcast->where('dosen_id', Auth::guard('dosen')->user()->id)->orderBy('created_at', 'DESC');
     }
 
     /**
@@ -66,8 +66,10 @@ class BroadcastDataTable extends DataTable
                     ->orderBy(1)
                     ->responsive(true)
                     ->autoWidth(false)
-                    ->selectStyleSingle()
-                    ->buttons([]);
+                    ->buttons([
+                        Button::make('reset'),
+                        Button::make('reload')
+                    ]);
     }
 
     /**
@@ -78,6 +80,8 @@ class BroadcastDataTable extends DataTable
         return [
             Column::make('DT_RowIndex')->title('No')->searchable(false),
             Column::make('title')->title('Judul'),
+            Column::make('body')->title('Isi'),
+            Column::make('is_published')->title('Status'),
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::computed('action')
