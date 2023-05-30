@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function login(Request $request) {
+    public function login(Request $request)
+    {
         try {
             $credentials = $request->validate([
                 'email' => ['required', 'email', 'string'],
@@ -26,7 +27,7 @@ class AuthController extends Controller
                 ], 'Authentication failed', 500);
             }
 
-            $user = User::with(['dosen', 'program_studi'])->where('email', $request->email)->first();
+            $user = User::with(['dosen', 'program_studi', 'status'])->where('email', $request->email)->first();
 
             if (!Hash::check($request->password, $user->password)) {
                 return ResponseFormatter::error([
@@ -49,7 +50,8 @@ class AuthController extends Controller
         }
     }
 
-    public function auth() {
+    public function auth()
+    {
         try {
             $user = User::with(['dosen', 'program_studi'])->where('id', Auth::user()->id)->first();
             return ResponseFormatter::success([

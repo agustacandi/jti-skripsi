@@ -6,8 +6,10 @@ use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\SkripsiController;
+use App\Http\Controllers\StatusController;
 use App\Imports\MahasiswaImport;
 use App\Models\ProgramStudi;
+use Illuminate\Database\Console\Migrations\StatusCommand;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -85,11 +87,30 @@ Route::middleware('auth:web,dosen')->group(function () {
         Route::get('history-ta', [SkripsiController::class, 'historyTA'])->name('history.ta');
         Route::get('list-ta', [SkripsiController::class, 'listTA'])->name('list.ta');
 
-        Route::get('status', [SkripsiController::class, 'indexStatus'])->name('index.status');
+        Route::get('status', [SkripsiController::class, 'indexStatus'])->name('status.ta');
 
-        Route::get('monitoring', [SkripsiController::class, 'indexMonitoring'])->name('index.monitoring');
+        Route::get('monitoring', [SkripsiController::class, 'indexMonitoring'])->name('monitoring.ta');
 
-        Route::get('pengajuan', [SkripsiController::class, 'indexPengajuan'])->name('index.pengajuan');
+        Route::get('pengajuan', [SkripsiController::class, 'indexPengajuan'])->name('pengajuan.ta');
+    });
+
+    // Dashboard Status Route
+    Route::redirect('/dashboard/status', '/dashboard/status/list-status');
+
+    Route::prefix('dashboard/status')->group(function () {
+
+        Route::get('list-status', [StatusController::class, 'index'])->name('status.index');
+        Route::get('tambah-status', [StatusController::class, 'addStatus'])->name('status.add');
+        Route::post('tambah-status', [StatusController::class, 'storeStatus'])->name('status.store');
+
+        Route::get('history-ta', [SkripsiController::class, 'historyTA'])->name('history.ta');
+        Route::get('list-ta', [SkripsiController::class, 'listTA'])->name('list.ta');
+
+        Route::get('status', [SkripsiController::class, 'indexStatus'])->name('status.ta');
+
+        Route::get('monitoring', [SkripsiController::class, 'indexMonitoring'])->name('monitoring.ta');
+
+        Route::get('pengajuan', [SkripsiController::class, 'indexPengajuan'])->name('pengajuan.ta');
     });
 
 

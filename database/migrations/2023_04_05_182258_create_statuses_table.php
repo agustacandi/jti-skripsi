@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,8 +12,12 @@ return new class extends Migration
     {
         Schema::create('statuses', function (Blueprint $table) {
             $table->id();
-            $table->enum('name', ['Belum input judul TA', 'Sudah input judul TA', 'Sudah Sempro', 'Sudah melakukan sidang', 'Lulus dengan revisi', 'Belum Lulus']);
-            $table->string('user_id');
+            $table->string('name');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('dosen_id')->nullable();
+            $table->foreign('dosen_id')->references('id')->on('dosens')->onDelete('cascade');
+            $table->boolean('is_verified')->default(false);
             $table->timestamps();
         });
     }

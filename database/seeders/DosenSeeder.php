@@ -17,6 +17,7 @@ class DosenSeeder extends Seeder
             'name' => 'Mukhamad Angga Gumilang, S. Pd., M. Eng.',
             'email' => 'angga.gumilang@polije.ac.id',
             'nip' => '19940812 201903 1 013',
+            'program_studi_id' => 1,
             'password' => bcrypt('password'),
         ]);
 

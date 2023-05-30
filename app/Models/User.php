@@ -48,7 +48,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function dosen() {
+    public function status()
+    {
+        return $this->hasMany(Status::class);
+    }
+
+    public function dosen()
+    {
         return $this->belongsTo(Dosen::class);
     }
 
