@@ -13,8 +13,12 @@ class StatusController extends Controller
 {
     public function index()
     {
-        $statuses = Status::where('user_id', Auth::user()->id)->get();
-        return response()->json($statuses);
+        try {
+            $statuses = Status::where('user_id', Auth::user()->id)->get();
+            return ResponseFormatter::success($statuses, 'Berhasil menambahkan status', 201);
+        } catch (Exception $error) {
+            return ResponseFormatter::error($error, 'Gagal menambahkan status', 500);
+        }
     }
 
     public function storeStatus(Request $request)
