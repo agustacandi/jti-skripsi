@@ -22,9 +22,10 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user/profile', [AuthController::class, 'auth']);
-    Route::get('/user/status', [StatusController::class, 'auth']);
+    Route::get('/user/status', [StatusController::class, 'index']);
+    Route::post('/user/status', [StatusController::class, 'storeStatus']);
     Route::get('/user/dosen-pembimbing', [UserController::class, 'getDosen']);
     Route::get('/broadcasts', [BroadcastController::class, 'all']);
-
+    Route::get('/skripsi/history', [SkripsiController::class, 'history']);
     Route::post('/skripsi/input-ta', [SkripsiController::class, 'input']);
 });

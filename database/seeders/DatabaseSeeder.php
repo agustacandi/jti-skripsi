@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\ProgramStudi;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -47,16 +48,54 @@ class DatabaseSeeder extends Seeder
             'name' => 'Bisnis Digital',
             'code' => 'BSD'
         ]);
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
         $this->call(
             [
                 DosenSeeder::class,
             ]
         );
+        User::create([
+            'name' => "Hendrawan",
+            'email' => "hendrawan@gmail.com",
+            'email_verified_at' => now(),
+            'nim' => "E41212361",
+            'program_studi_id' => 1,
+            'angkatan' => '2021',
+            'gender' => 'Laki-laki',
+            'address' => fake()->address(),
+            'phone_number' => fake()->unique()->phoneNumber(),
+            'dosen_id' => 1,
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'remember_token' => Str::random(10)
+        ]);
+        User::create([
+            'name' => "Iqbal",
+            'email' => "iqbal@gmail.com",
+            'email_verified_at' => now(),
+            'nim' => "E41212362",
+            'program_studi_id' => 1,
+            'angkatan' => '2021',
+            'gender' => 'Laki-laki',
+            'address' => fake()->address(),
+            'phone_number' => fake()->unique()->phoneNumber(),
+            'dosen_id' => 1,
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'remember_token' => Str::random(10)
+        ]);
+        User::create([
+            'name' => "Candi",
+            'email' => "candi@gmail.com",
+            'email_verified_at' => now(),
+            'nim' => "E41212363",
+            'program_studi_id' => 1,
+            'angkatan' => '2021',
+            'gender' => 'Laki-laki',
+            'address' => fake()->address(),
+            'phone_number' => fake()->unique()->phoneNumber(),
+            'dosen_id' => 1,
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'remember_token' => Str::random(10)
+        ]);
 
-        \App\Models\User::factory(300)->create();
+        // \App\Models\User::factory(300)->create();
     }
 }

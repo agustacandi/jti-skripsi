@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 class SkripsiController extends Controller
 {
-    public function input(Request $request) {
+    public function input(Request $request)
+    {
         try {
             $request->validate([
                 'judul_1' => 'required|string|unique:skripsis|max:200',
@@ -48,6 +49,18 @@ class SkripsiController extends Controller
             return ResponseFormatter::error([
                 'error' => $error
             ], 'Terjadi kesalahan pada saat input TA', 500);
+        }
+    }
+
+    public function history()
+    {
+        try {
+            $skripsi = Skripsi::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
+            return ResponseFormatter::success($skripsi, 'Berhasil get history TA.', 200);
+        } catch (Exception $error) {
+            return ResponseFormatter::error([
+                'error' => $error
+            ], 'Terjadi kesalahan', 500);
         }
     }
 }

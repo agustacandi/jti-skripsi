@@ -10,7 +10,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function getDosen(Request $request) {
+    public function getDosen(Request $request)
+    {
         try {
             $dosen = DB::table('dosens')->paginate($request->input('limit'));
             return $dosen;
