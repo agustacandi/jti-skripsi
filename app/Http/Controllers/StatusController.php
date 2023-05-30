@@ -12,7 +12,7 @@ class StatusController extends Controller
 {
     public function index()
     {
-        $status = DB::table('statuses')->where('user_id', Auth::user()->id)->get();
+        $status = DB::table('statuses')->get();
         return view('dashboard.status.list', compact('status'));
     }
 

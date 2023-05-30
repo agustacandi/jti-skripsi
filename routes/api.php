@@ -4,6 +4,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BroadcastController;
 use App\Http\Controllers\API\SkripsiController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\StatusController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,10 +22,9 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/user/profile', [AuthController::class, 'auth']);
-    Route::get('/user/status', [AuthController::class, 'auth']);
+    Route::get('/user/status', [StatusController::class, 'auth']);
     Route::get('/user/dosen-pembimbing', [UserController::class, 'getDosen']);
     Route::get('/broadcasts', [BroadcastController::class, 'all']);
 
     Route::post('/skripsi/input-ta', [SkripsiController::class, 'input']);
 });
-
