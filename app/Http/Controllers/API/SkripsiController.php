@@ -8,6 +8,7 @@ use App\Models\Skripsi;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SkripsiController extends Controller
 {
@@ -57,6 +58,44 @@ class SkripsiController extends Controller
         try {
             $skripsi = Skripsi::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
             return ResponseFormatter::success($skripsi, 'Berhasil get history TA.', 200);
+        } catch (Exception $error) {
+            return ResponseFormatter::error([
+                'error' => $error
+            ], 'Terjadi kesalahan', 500);
+        }
+    }
+
+    public function storeMonitoring(Request $request)
+    {
+        try {
+            $request->validate([
+                'progress' => 'required',
+                'deskripsi' => 'required|string|max:255',
+            ]);
+
+            $skripsi = DB::table('skripsis')->where('user_id', Auth::user()->id)->where('status', 'ACCEPTED')->first();
+
+            $skripsi = DB::table('monitoring')->insert([
+                'progress' => $request->progress,
+                'deskripsi' => $request->deskripsi,
+                'skripsi_id' => $skripsi->id,
+                'user_id' => Auth::user()->id,
+                'dosen_id' => Auth::user()->dosen_id,
+            ]);
+
+            return ResponseFormatter::success($skripsi, 'Berhasil menambah progress.', 201);
+        } catch (Exception $error) {
+            return ResponseFormatter::error([
+                'error' => $error
+            ], 'Terjadi kesalahan pada saat menambah progress', 500);
+        }
+    }
+
+    public function historyMonitoring()
+    {
+        try {
+            $monitoring = DB::table('monitoring')->where('user_id', Auth::user()->id)->get();
+            return ResponseFormatter::success($monitoring, 'Berhasil get monitoring TA.', 200);
         } catch (Exception $error) {
             return ResponseFormatter::error([
                 'error' => $error

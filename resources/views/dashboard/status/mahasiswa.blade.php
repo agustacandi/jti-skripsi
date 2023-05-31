@@ -59,9 +59,15 @@
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                         </div>
                         <div class="col-12 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary me-1 mb-1">
-                                Submit
-                            </button>
+                            @if (filter_var($status->is_verified, FILTER_VALIDATE_BOOLEAN))
+                                <button type="submit" class="btn btn-primary me-1 mb-1">
+                                    Submit
+                                </button>
+                            @else
+                                <button type="submit" disabled class="btn btn-primary me-1 mb-1">
+                                    Submit
+                                </button>
+                            @endif
                             <button type="reset" class="btn btn-light-secondary me-1 mb-1">
                                 Reset
                             </button>
@@ -90,8 +96,6 @@
                                         <p>{{ $status->name }} - {{ $status->created_at }}</p>
                                         @if (filter_var($status->is_verified, FILTER_VALIDATE_BOOLEAN))
                                             <span class="badge bg-success">Approved</span>
-                                        @else
-                                            <span class="badge bg-danger">Rejected</span>
                                         @endif
                                     </div>
                                 </div>

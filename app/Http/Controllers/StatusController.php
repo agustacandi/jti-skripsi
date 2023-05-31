@@ -12,14 +12,16 @@ class StatusController extends Controller
 {
     public function index()
     {
-        $status = DB::table('statuses')->get();
+        $status = Status::with(['mahasiswa'])->get();
+        dd($status);
         return view('dashboard.status.list', compact('status'));
     }
 
     public function addStatus()
     {
         $statuses = Status::with(['mahasiswa'])->where('user_id', Auth::user()->id)->get();
-        return view('dashboard.status.mahasiswa', compact('statuses'));
+        $status = Status::with(['mahasiswa'])->where('user_id', Auth::user()->id)->first();
+        return view('dashboard.status.mahasiswa', compact('statuses', 'status'));
     }
 
     public function storeStatus(Request $request)

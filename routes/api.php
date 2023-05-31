@@ -29,4 +29,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/broadcasts', [BroadcastController::class, 'all']);
     Route::get('/skripsi/history', [SkripsiController::class, 'history']);
     Route::post('/skripsi/input-ta', [SkripsiController::class, 'input']);
+    Route::get('/skripsi/monitoring', [SkripsiController::class, 'historyMonitoring']);
+    Route::post('/skripsi/monitoring', [SkripsiController::class, 'storeMonitoring']);
 });
