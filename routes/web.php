@@ -100,6 +100,7 @@ Route::middleware('auth:web,dosen')->group(function () {
     Route::prefix('dashboard/status')->group(function () {
 
         Route::get('list-status', [StatusController::class, 'index'])->name('status.index');
+        Route::post('list-status/{status}', [StatusController::class, 'index'])->name('status.index');
         Route::get('tambah-status', [StatusController::class, 'addStatus'])->name('status.add');
         Route::post('tambah-status', [StatusController::class, 'storeStatus'])->name('status.store');
 

@@ -13,7 +13,6 @@ class StatusController extends Controller
     public function index()
     {
         $status = Status::with(['mahasiswa'])->get();
-        dd($status);
         return view('dashboard.status.list', compact('status'));
     }
 

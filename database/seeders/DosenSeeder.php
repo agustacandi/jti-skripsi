@@ -19,7 +19,6 @@ class DosenSeeder extends Seeder
             'nip' => '19940812 201903 1 013',
             'program_studi_id' => 1,
             'password' => bcrypt('password'),
-            'program_studi_id' => 1,
         ]);
 
         Dosen::factory(5)->create();

@@ -31,4 +31,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/skripsi/input-ta', [SkripsiController::class, 'input']);
     Route::get('/skripsi/monitoring', [SkripsiController::class, 'historyMonitoring']);
     Route::post('/skripsi/monitoring', [SkripsiController::class, 'storeMonitoring']);
+    Route::post('/skripsi/pengajuan', [SkripsiController::class, 'storePengajuan']);
 });

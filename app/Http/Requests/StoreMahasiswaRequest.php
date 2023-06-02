@@ -23,7 +23,8 @@ class StoreMahasiswaRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|unique:users|email:rfc,dns|max:100',
+            // 'email' => 'required|string|unique:users|email:rfc,dns|max:100',
+            'email' => 'required|string',
             'nim' => 'required|string|unique:users|max:9',
             'phone_number' => 'required|string|unique:users|max:20',
             'angkatan' => 'required|string',

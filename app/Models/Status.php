@@ -15,6 +15,6 @@ class Status extends Model
 
     public function mahasiswa()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

@@ -48,8 +48,8 @@
                                 @foreach ($status as $sts)
                                     <tr>
                                         <td class="text-bold-500">{{ $sts->mahasiswa->name }}</td>
-                                        <td>$15/hr</td>
-                                        <td class="text-bold-500">UI/UX</td>
+                                        <td>{{ $sts->mahasiswa->nim }}</td>
+                                        <td class="text-bold-500">{{ $sts->name }}</td>
                                         <td>
                                             <button class="btn btn-primary" id="accept-button"
                                                 data-id="">Accept</button>

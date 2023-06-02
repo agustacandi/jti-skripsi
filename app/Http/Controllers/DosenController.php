@@ -71,7 +71,7 @@ class DosenController extends Controller
         $data = $request->all();
         if ($request->file('avatar')) {
             if ($dosen->avatar != '') {
-                Storage::delete($mahasiswa->avatar);
+                Storage::delete($dosen->avatar);
             }
             $data['avatar'] = $request->file('avatar')->store('avatar');
         }

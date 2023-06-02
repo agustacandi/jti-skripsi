@@ -48,7 +48,7 @@ class SkripsiController extends Controller
             return ResponseFormatter::success($skripsi, 'Berhasil input TA.', 201);
         } catch (Exception $error) {
             return ResponseFormatter::error([
-                'error' => $error
+                'error' => $error->getMessage()
             ], 'Terjadi kesalahan pada saat input TA', 500);
         }
     }
@@ -60,7 +60,7 @@ class SkripsiController extends Controller
             return ResponseFormatter::success($skripsi, 'Berhasil get history TA.', 200);
         } catch (Exception $error) {
             return ResponseFormatter::error([
-                'error' => $error
+                'error' => $error->getMessage()
             ], 'Terjadi kesalahan', 500);
         }
     }
@@ -86,7 +86,7 @@ class SkripsiController extends Controller
             return ResponseFormatter::success($skripsi, 'Berhasil menambah progress.', 201);
         } catch (Exception $error) {
             return ResponseFormatter::error([
-                'error' => $error
+                'error' => $error->getMessage()
             ], 'Terjadi kesalahan pada saat menambah progress', 500);
         }
     }
@@ -98,8 +98,42 @@ class SkripsiController extends Controller
             return ResponseFormatter::success($monitoring, 'Berhasil get monitoring TA.', 200);
         } catch (Exception $error) {
             return ResponseFormatter::error([
-                'error' => $error
+                'error' => $error->getMessage()
             ], 'Terjadi kesalahan', 500);
+        }
+    }
+    public function storePengajuan(Request $request)
+    {
+        try {
+            $request->validate([
+                'judul_sebelum' => 'required|string|max:255',
+                'judul_sesudah' => 'required|string|max:255',
+                'alasan' => 'required|string',
+            ]);
+
+            if ($request->judul_sebelum && $request->judul_sesudah) {
+                $judulSebelum = explode(' ', $request->judul_sebelum);
+                $judulSesudah = explode(' ', $request->judul_sesudah);
+
+                if (count($judulSebelum) > 20 || count($judulSesudah) > 20) {
+                    return ResponseFormatter::error(null, 'Judul TA tidak boleh lebih dari 20 kata.');
+                }
+            }
+
+            $skripsi = DB::table('skripsis')->where('user_id', Auth::user()->id)->where('status', 'ACCEPTED')->first();
+
+            $skripsi = DB::table('pengajuan')->insert([
+                'skripsi_id' => $skripsi->id,
+                'judul_sebelum' => $request->judul_sebelum,
+                'judul_sesudah' => $request->judul_sesudah,
+                'alasan' => $request->alasan,
+            ]);
+
+            return ResponseFormatter::success($skripsi, 'Berhasil menambahkan pengajuan.', 201);
+        } catch (Exception $error) {
+            return ResponseFormatter::error([
+                'error' => $error->getMessage()
+            ], 'Terjadi kesalahan pada saat menambahkan pengajuan', 500);
         }
     }
 }

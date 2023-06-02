@@ -92,7 +92,7 @@
                                         src="https://pm1.narvii.com/5679/703675c7b19a91624c6e5cfa11ef4a8c74029978_hq.jpg"
                                         alt="Avatar">
                                     <div>
-                                        <h6>{{ Auth::user()->name }}</h6>
+                                        <h6>{{ $status->mahasiswa->name }}</h6>
                                         <p>{{ $status->name }} - {{ $status->created_at }}</p>
                                         @if (filter_var($status->is_verified, FILTER_VALIDATE_BOOLEAN))
                                             <span class="badge bg-success">Approved</span>
