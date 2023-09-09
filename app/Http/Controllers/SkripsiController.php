@@ -49,8 +49,8 @@ class SkripsiController extends Controller
     }
     public function historyTA()
     {
-        $dosens = DB::table('dosens')->limit(5)->get(['id', 'name']);
-        return view('dashboard.skripsi.history', compact('dosens'));
+        $skripsi = Skripsi::with(['user'])->where('user_id', auth()->user()->id)->get();
+        return view('dashboard.skripsi.history', compact('skripsi'));
     }
 
     public function listTA(SkripsiDataTable $dataTable)
@@ -75,8 +75,13 @@ class SkripsiController extends Controller
         return view('dashboard.skripsi.monitoring', compact('monitoring'));
     }
 
-    public function addMonitoring()
+    public function addMonitoring(Request $request)
     {
+        $request->validate([
+            'deskripsi' => 'required|string|max:200',
+            'progress' => 'required|integer'
+        ]);
+
         $monitoring = DB::table('monitoring')->get(['deskripsi']);
         return view('dashboard.skripsi.monitoring', compact('monitoring'));
     }

@@ -82,32 +82,45 @@
                                                     Reset
                                                 </button>
                                             </div>
-                                            {{-- tabel data riwayat status --}}
-                                            <h5>Riwayat Monitoring</h5>
-                                            <div class="d-lg-flex justify-content-lg-between mt-2">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">No</th>
-                                                            <th scope="col">Deskripsi Monitoring</th>
-                                                            <th scope="col">Point Progres</th>
-                                                        </tr>
-                                                    </thead>
-                                                    {{-- query id berubah otomatis --}}
-                                                    <tbody>
-                                                        @foreach ($monitoring as $row)
-                                                            <tr>
-                                                                <th scope="row">{{ $loop->iteration }}</th>
-                                                                <td>{{ $row->deskripsi }}</td>
-                                                                <td>{{ $row->progress }}</td>
-                                                            </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
                                         </div>
                                     </div>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row match-height">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Riwayat Monitoring Skripsi</h4>
+                        </div>
+                        {{-- option status --}}
+                        <div class="card-content">
+                            <div class="card-body">
+                                <div class="d-lg-flex justify-content-lg-between mt-2">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Deskripsi Monitoring</th>
+                                                <th scope="col">Point Progres</th>
+                                            </tr>
+                                        </thead>
+                                        {{-- query id berubah otomatis --}}
+                                        <tbody>
+                                            @foreach ($monitoring as $row)
+                                                <tr>
+                                                    <th scope="row">{{ $loop->iteration }}</th>
+                                                    <td>{{ $row->deskripsi }}</td>
+                                                    <td>{{ $row->progress }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
