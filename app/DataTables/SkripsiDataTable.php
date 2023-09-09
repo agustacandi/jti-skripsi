@@ -31,7 +31,7 @@ class SkripsiDataTable extends DataTable
     public function query(Skripsi $model): QueryBuilder
     {
         $skripsi = $model->newQuery();
-        return $skripsi->where('status', 'PENDING');
+        return $skripsi->with(['user'])->where('status', 'PENDING');
     }
 
     /**
@@ -60,6 +60,8 @@ class SkripsiDataTable extends DataTable
     {
         return [
             Column::make('DT_RowIndex')->title('No')->searchable(false),
+            Column::make('user.name')->title('Nama Mahasiswa'),
+            Column::make('user.nim')->title('NIM'),
             Column::make('judul_1')->title('Judul TA 1'),
             Column::make('deskripsi_1')->title('Deskripsi TA 1'),
             Column::make('output_1')->title('Output TA 1'),

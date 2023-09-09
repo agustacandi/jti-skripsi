@@ -37,7 +37,7 @@
                         <div class="card-content">
                             <div class="card-body">
                                 <form class="form" action="{{ route('broadcast.update', $broadcast->id) }}" method="POST"
-                                      enctype="multipart/form-data">
+                                    enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
                                     <div class="row">
@@ -45,13 +45,13 @@
                                             <div class="form-group">
                                                 <label for="title">Judul</label>
                                                 <input type="text" id="title"
-                                                       class="form-control @error('title') is-invalid @enderror"
-                                                       placeholder="Judul" name="title" value="{{ $broadcast->title}}" />
+                                                    class="form-control @error('title') is-invalid @enderror"
+                                                    placeholder="Judul" name="title" value="{{ $broadcast->title }}" />
                                                 @error('title')
-                                                <div class="invalid-feedback">
-                                                    <i class="bx bx-radio-circle"></i>
-                                                    {{ $message }}
-                                                </div>
+                                                    <div class="invalid-feedback">
+                                                        <i class="bx bx-radio-circle"></i>
+                                                        {{ $message }}
+                                                    </div>
                                                 @enderror
                                             </div>
                                         </div>
@@ -59,28 +59,21 @@
                                             <div class="form-group">
                                                 <label for="body">Isi Broadcast</label>
                                                 <textarea id="body" class="form-control @error('body') is-invalid @enderror" spellcheck="false" rows="4"
-                                                          name="body" placeholder="Masukan Abstrak...">{{ $broadcast->body }}</textarea>
+                                                    name="body" placeholder="Masukan Abstrak...">{{ $broadcast->body }}</textarea>
                                                 @error('body')
-                                                <div class="invalid-feedback">
-                                                    <i class="bx bx-radio-circle"></i>
-                                                    {{ $message }}
-                                                </div>
+                                                    <div class="invalid-feedback">
+                                                        <i class="bx bx-radio-circle"></i>
+                                                        {{ $message }}
+                                                    </div>
                                                 @enderror
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-check form-switch">
-                                                <input
-                                                    class="form-check-input"
-                                                    type="checkbox"
-                                                    id="flexSwitchCheckDefault"
-                                                    name="is_published"
-                                                />
-                                                <label
-                                                    class="form-check-label"
-                                                    for="flexSwitchCheckDefault"
-                                                >Publish Broadcast</label
-                                                >
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                                                    name="is_published" @checked($broadcast->is_published) />
+                                                <label class="form-check-label" for="flexSwitchCheckDefault">Publish
+                                                    Broadcast</label>
                                             </div>
                                         </div>
                                         <div class="col-12 d-flex justify-content-end">

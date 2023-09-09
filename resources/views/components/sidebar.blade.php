@@ -49,33 +49,47 @@
                 </a>
             </li>
 
-            <li class="sidebar-item {{ Request::is('dashboard/mahasiswa*') ? 'active' : '' }}">
-                <a href="{{ route('mahasiswa.index') }}" class="sidebar-link">
-                    <i class="fas fa-user"></i>
-                    <span>Mahasiswa</span>
-                </a>
-            </li>
+            @if (Auth::guard('dosen')->check())
+                @if (Auth::guard('dosen')->user()->role === 'admin')
+                    <li class="sidebar-item {{ Request::is('dashboard/mahasiswa*') ? 'active' : '' }}">
+                        <a href="{{ route('mahasiswa.index') }}" class="sidebar-link">
+                            <i class="fas fa-user"></i>
+                            <span>Mahasiswa</span>
+                        </a>
+                    </li>
+                @endif
+            @endif
 
-            <li class="sidebar-item {{ Request::is('dashboard/dosen*') ? 'active' : '' }}">
-                <a href="{{ route('dosen.index') }}" class="sidebar-link">
-                    <i class="fas fa-user-tie"></i>
-                    <span>Dosen</span>
-                </a>
-            </li>
+            @if (Auth::guard('dosen')->check())
+                @if (Auth::guard('dosen')->user()->role === 'admin')
+                    <li class="sidebar-item {{ Request::is('dashboard/dosen*') ? 'active' : '' }}">
+                        <a href="{{ route('dosen.index') }}" class="sidebar-link">
+                            <i class="fas fa-user-tie"></i>
+                            <span>Dosen</span>
+                        </a>
+                    </li>
+                @endif
+            @endif
 
-            <li class="sidebar-item {{ Request::is('dashboard/program-studi*') ? 'active' : '' }}">
-                <a href="{{ route('program-studi.index') }}" class="sidebar-link">
-                    <i class="fas fa-tags"></i>
-                    <span>Program Studi</span>
-                </a>
-            </li>
+            @if (Auth::guard('dosen')->check())
+                @if (Auth::guard('dosen')->user()->role === 'admin')
+                    <li class="sidebar-item {{ Request::is('dashboard/program-studi*') ? 'active' : '' }}">
+                        <a href="{{ route('program-studi.index') }}" class="sidebar-link">
+                            <i class="fas fa-tags"></i>
+                            <span>Program Studi</span>
+                        </a>
+                    </li>
+                @endif
+            @endif
 
-            <li class="sidebar-item {{ Request::is('dashboard/broadcast*') ? 'active' : '' }}">
-                <a href="{{ route('broadcast.index') }}" class="sidebar-link">
-                    <i class="fas fa-bullhorn"></i>
-                    <span>Broadcast</span>
-                </a>
-            </li>
+            @if (Auth::guard('dosen')->check())
+                <li class="sidebar-item {{ Request::is('dashboard/broadcast*') ? 'active' : '' }}">
+                    <a href="{{ route('broadcast.index') }}" class="sidebar-link">
+                        <i class="fas fa-user-tag"></i>
+                        <span>Broadcast</span>
+                    </a>
+                </li>
+            @endif
 
             <li class="sidebar-item {{ Request::is('dashboard/status*') ? 'active' : '' }} has-sub">
                 <a href="#" class="sidebar-link">
@@ -84,13 +98,17 @@
                 </a>
 
                 <ul class="submenu {{ Request::is('dashboard/status*') ? 'active' : '' }}">
-                    <li class="submenu-item {{ Request::is('dashboard/status/list-status') ? 'active' : '' }}">
-                        <a href="{{ route('status.index') }}" class="submenu-link">List Status Mahasiswa</a>
-                    </li>
+                    @if (Auth::guard('dosen')->check())
+                        <li class="submenu-item {{ Request::is('dashboard/status/list-status') ? 'active' : '' }}">
+                            <a href="{{ route('status.index') }}" class="submenu-link">List Status Mahasiswa</a>
+                        </li>
+                    @endif
 
-                    <li class="submenu-item {{ Request::is('dashboard/status/tambah-status') ? 'active' : '' }}">
-                        <a href="{{ route('status.add') }}" class="submenu-link">Tambah Status</a>
-                    </li>
+                    @if (Auth::guard('web')->check())
+                        <li class="submenu-item {{ Request::is('dashboard/status/tambah-status') ? 'active' : '' }}">
+                            <a href="{{ route('status.add') }}" class="submenu-link">Tambah Status</a>
+                        </li>
+                    @endif
                 </ul>
             </li>
 
@@ -101,33 +119,37 @@
                 </a>
 
                 <ul class="submenu {{ Request::is('dashboard/skripsi*') ? 'active' : '' }}">
-                    <li class="submenu-item {{ Request::is('dashboard/skripsi/input-ta') ? 'active' : '' }}">
-                        <a href="{{ route('input.ta') }}" class="submenu-link">Input TA</a>
-                    </li>
+
+                    @if (Auth::guard('web')->check())
+                        <li class="submenu-item {{ Request::is('dashboard/skripsi/input-ta') ? 'active' : '' }}">
+                            <a href="{{ route('input.ta') }}" class="submenu-link">Input Skripsi</a>
+                        </li>
+                    @endif
+
+                    @if (Auth::guard('web')->check())
+                        <li class="submenu-item {{ Request::is('dashboard/skripsi/monitoring') ? 'active' : '' }}">
+                            <a href="{{ route('monitoring.ta') }}" class="submenu-link">Monitoring Skripsi</a>
+                        </li>
+                    @endif
 
                     <li class="submenu-item {{ Request::is('dashboard/skripsi/history-ta') ? 'active' : '' }}">
-                        <a href="{{ route('history.ta') }}" class="submenu-link">Riwayat Input TA</a>
+                        <a href="{{ route('history.ta') }}" class="submenu-link">Riwayat Input Skripsi</a>
+                    </li>
+
+                    <li
+                        class="submenu-item {{ Request::is('dashboard/skripsi/list-progres-mahasiswa') ? 'active' : '' }}">
+                        <a href="{{ route('list.progres.mahasiswa') }}" class="submenu-link">List Progres
+                            Mahasiswa</a>
                     </li>
 
                     <li class="submenu-item {{ Request::is('dashboard/skripsi/list-ta') ? 'active' : '' }}">
-                        <a href="{{ route('list.ta') }}" class="submenu-link">List TA</a>
+                        <a href="{{ route('list.ta') }}" class="submenu-link">List Skripsi</a>
                     </li>
 
-                    <li class="submenu-item {{ Request::is('dashboard/skripsi/status') ? 'active' : '' }}">
+                    {{-- <li class="submenu-item {{ Request::is('dashboard/skripsi/status') ? 'active' : '' }}">
                         <a href="{{ route('status.ta') }}" class="submenu-link">Status Skripsi</a>
-                    </li>
+                    </li> --}}
 
-                    <li class="submenu-item {{ Request::is('dashboard/skripsi/monitoring') ? 'active' : '' }}">
-                        <a href="{{ route('monitoring.ta') }}" class="submenu-link">Monitoring Skripsi</a>
-                    </li>
-
-                    <li class="submenu-item">
-                        <a href="layout-rtl.html" class="submenu-link">RTL Layout</a>
-                    </li>
-
-                    <li class="submenu-item">
-                        <a href="layout-horizontal.html" class="submenu-link">Horizontal Menu</a>
-                    </li>
                 </ul>
             </li>
 

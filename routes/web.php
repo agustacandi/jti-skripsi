@@ -8,6 +8,7 @@ use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\SkripsiController;
 use App\Http\Controllers\StatusController;
 use App\Imports\MahasiswaImport;
+use App\Models\Broadcast;
 use App\Models\ProgramStudi;
 use Illuminate\Database\Console\Migrations\StatusCommand;
 use Illuminate\Foundation\Auth\User;
@@ -47,7 +48,13 @@ Route::middleware('auth:web,dosen')->group(function () {
         $mahasiswa = DB::table('users')->count();
         $dosen = DB::table('dosens')->count();
         $skripsi = DB::table('skripsis')->count();
-        return view('dashboard.home', compact('mahasiswa', 'dosen', 'skripsi'));
+        $broadcasts = null;
+
+        if (Auth::guard('web')->check()) {
+            $broadcasts = Broadcast::with(['dosen'])->where('is_published', true)->where('dosen_id', Auth::guard('web')->user()->dosen_id)->get();
+        }
+        // dd($broadcasts);
+        return view('dashboard.home', compact('mahasiswa', 'dosen', 'skripsi', 'broadcasts'));
     })->name('dashboard');
 
     Route::prefix('dashboard')->group(function () {
@@ -62,12 +69,25 @@ Route::middleware('auth:web,dosen')->group(function () {
             return redirect()->route('mahasiswa.index')->with('message', 'Berhasil mengimpor data.');
         })->name('mahasiswa.import');
 
-        Route::get('/mahasiswa/download-format-excel', function () {
-            return Storage::download(public_path('assets/file/format-excel-mahasiswa.xlsx'));
+        Route::post('/mahasiswa/download-format-excel', function () {
+            $file = public_path('assets/file/format-excel-mahasiswa.xlsx');
+            return response()->download($file, 'format-excel-mahasiswa.xlsx');
         })->name('excel.mahasiswa');
 
         // Dashboard Dosen Resource Route
         Route::resource('/dosen', DosenController::class);
+        Route::post('/dosen/import', function (Request $request) {
+            $request->validate([
+                'file' => 'required',
+            ]);
+            Excel::import(new MahasiswaImport, $request->file('file'));
+            return redirect()->route('dosen.index')->with('message', 'Berhasil mengimpor data.');
+        })->name('dosen.import');
+
+        Route::post('/dosen/download-format-excel', function () {
+            $file = public_path('assets/file/format-excel-dosen.xlsx');
+            return response()->download($file, 'format-excel-dosen.xlsx');
+        })->name('excel.dosen');
 
         // Dashboard Broadcast Resource Route
         Route::resource('/broadcast', BroadcastController::class);
@@ -77,7 +97,7 @@ Route::middleware('auth:web,dosen')->group(function () {
     });
 
     // Dashboard Skripsi Route
-    Route::redirect('/dashboard/skripsi', '/dashboard/skripsi/pengajuan-judul');
+    Route::redirect('/dashboard/skripsi', '/dashboard');
 
     Route::prefix('dashboard/skripsi')->group(function () {
 
@@ -85,33 +105,39 @@ Route::middleware('auth:web,dosen')->group(function () {
         Route::post('input-ta', [SkripsiController::class, 'storeInputTA'])->name('store.ta');
 
         Route::get('history-ta', [SkripsiController::class, 'historyTA'])->name('history.ta');
+
         Route::get('list-ta', [SkripsiController::class, 'listTA'])->name('list.ta');
+
+        Route::get('list-progres-mahasiswa', [SkripsiController::class, 'listTA'])->name('list.progres.mahasiswa');
 
         Route::get('status', [SkripsiController::class, 'indexStatus'])->name('status.ta');
 
         Route::get('monitoring', [SkripsiController::class, 'indexMonitoring'])->name('monitoring.ta');
+
+        Route::post('monitoring', [SkripsiController::class, 'addMonitoring'])->name('monitoring.add');
 
         Route::get('pengajuan', [SkripsiController::class, 'indexPengajuan'])->name('pengajuan.ta');
     });
 
     // Dashboard Status Route
-    Route::redirect('/dashboard/status', '/dashboard/status/list-status');
+    Route::redirect('/dashboard/status', '/dashboard');
 
     Route::prefix('dashboard/status')->group(function () {
 
         Route::get('list-status', [StatusController::class, 'index'])->name('status.index');
-        Route::post('list-status/{status}', [StatusController::class, 'index'])->name('status.index');
+        // Route::post('list-status/{status}', [StatusController::class, 'index'])->name('status.index');
         Route::get('tambah-status', [StatusController::class, 'addStatus'])->name('status.add');
         Route::post('tambah-status', [StatusController::class, 'storeStatus'])->name('status.store');
 
-        Route::get('history-ta', [SkripsiController::class, 'historyTA'])->name('history.ta');
-        Route::get('list-ta', [SkripsiController::class, 'listTA'])->name('list.ta');
+        // Route::get('history-ta', [SkripsiController::class, 'historyTA'])->name('history.ta');
+        // Route::get('list-ta', [SkripsiController::class, 'listTA'])->name('list.ta');
 
-        Route::get('status', [SkripsiController::class, 'indexStatus'])->name('status.ta');
+        // Route::get('status', [SkripsiController::class, 'indexStatus'])->name('status.ta');
 
-        Route::get('monitoring', [SkripsiController::class, 'indexMonitoring'])->name('monitoring.ta');
+        // Route::get('monitoring', [SkripsiController::class, 'indexMonitoring'])->name('monitoring.ta');
 
-        Route::get('pengajuan', [SkripsiController::class, 'indexPengajuan'])->name('pengajuan.ta');
+
+        // Route::get('pengajuan', [SkripsiController::class, 'indexPengajuan'])->name('pengajuan.ta');
     });
 
 

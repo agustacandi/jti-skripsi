@@ -46,7 +46,7 @@ class BroadcastController extends Controller
 
         Broadcast::create($data);
 
-       return redirect()->route('broadcast.index')->with('message', 'Berhasil menambahkan broadcast.');
+        return redirect()->route('broadcast.index')->with('message', 'Berhasil menambahkan broadcast.');
     }
 
     /**
@@ -70,7 +70,9 @@ class BroadcastController extends Controller
      */
     public function update(Request $request, Broadcast $broadcast)
     {
-        $broadcast->update($request->all());
+        $data = $request->all();
+        $data['is_published'] = $request->has('is_published') ? true : false;
+        $broadcast->update($data);
 
         return redirect()->route('broadcast.index')->with('message', 'Berhasil memperbarui data');
     }

@@ -189,11 +189,17 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Import Data Dari Excel</h4>
+                            <div class="d-lg-flex justify-content-lg-between">
+                                <h4 class="card-title">Import Data Dari Excel</h4>
+                                <form action="{{ route('excel.dosen') }}" method="post">
+                                    @csrf
+                                    <button class="btn btn-primary" type="submit">Download Format</button>
+                                </form>
+                            </div>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form class="form" action="{{ route('mahasiswa.import') }}" method="POST"
+                                <form class="form" action="{{ route('dosen.import') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">

@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'Status Mahasiswa Page')
+@section('title', 'Status Mahasiswa')
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Status Mahasiswa Page</h3>
+                    <h3>Status Mahasiswa</h3>
                     <p class="text-subtitle text-muted">Halaman untuk menambahkan status dan melihat status mahasiswa.</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
@@ -42,8 +42,8 @@
                                 <select class="form-select @error('name') is-invalid @enderror" id="status"
                                     name="name">
                                     <option value="">--- Pilih Status ---</option>
-                                    <option value="Belum input judul TA">Belum input judul TA</option>
-                                    <option value="Sudah input judul TA">Sudah input judul TA</option>
+                                    <option value="Belum input judul Skripsi">Belum input judul Skripsi</option>
+                                    <option value="Sudah input judul Skripsi">Sudah input judul Skripsi</option>
                                     <option value="Sudah Sempro">Sudah Sempro</option>
                                     <option value="Sudah melakukan sidang">Sudah melakukan sidang</option>
                                     <option value="Lulus dengan revisi">Lulus dengan revisi</option>
@@ -59,15 +59,15 @@
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                         </div>
                         <div class="col-12 d-flex justify-content-end">
-                            @if (filter_var($status->is_verified, FILTER_VALIDATE_BOOLEAN))
-                                <button type="submit" class="btn btn-primary me-1 mb-1">
-                                    Submit
-                                </button>
-                            @else
+                            {{-- @if (filter_var($status->is_verified, FILTER_VALIDATE_BOOLEAN)) --}}
+                            <button type="submit" class="btn btn-primary me-1 mb-1">
+                                Submit
+                            </button>
+                            {{-- @else
                                 <button type="submit" disabled class="btn btn-primary me-1 mb-1">
                                     Submit
                                 </button>
-                            @endif
+                            @endif --}}
                             <button type="reset" class="btn btn-light-secondary me-1 mb-1">
                                 Reset
                             </button>
@@ -93,9 +93,12 @@
                                         alt="Avatar">
                                     <div>
                                         <h6>{{ $status->mahasiswa->name }}</h6>
-                                        <p>{{ $status->name }} - {{ $status->created_at }}</p>
+                                        <p>{{ $status->name }} - {{ $status->created_at->locale('id_ID')->diffForHumans() }}
+                                        </p>
                                         @if (filter_var($status->is_verified, FILTER_VALIDATE_BOOLEAN))
                                             <span class="badge bg-success">Approved</span>
+                                        @else
+                                            <span class="badge bg-danger">Pending</span>
                                         @endif
                                     </div>
                                 </div>

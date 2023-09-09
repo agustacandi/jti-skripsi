@@ -20,6 +20,7 @@ class StatusController extends Controller
     {
         $statuses = Status::with(['mahasiswa'])->where('user_id', Auth::user()->id)->get();
         $status = Status::with(['mahasiswa'])->where('user_id', Auth::user()->id)->first();
+        // dd($status->is_verified);
         return view('dashboard.status.mahasiswa', compact('statuses', 'status'));
     }
 

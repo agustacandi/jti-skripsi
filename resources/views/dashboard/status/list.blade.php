@@ -22,9 +22,9 @@
                 </div>
             </div>
         </div>
-        @if (\Illuminate\Support\Facades\Session::has('message'))
+        @if (Session::has('message'))
             <div class="alert alert-danger alert-dismissible show fade">
-                {{ \Illuminate\Support\Facades\Session::get('message') }}
+                {{ Session::get('message') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif

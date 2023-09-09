@@ -11,8 +11,9 @@ class SkripsiController extends Controller
 {
     public function indexInputTA()
     {
+        $skripsi = Skripsi::where('user_id', auth()->user()->id)->first();
         $dosens = DB::table('dosens')->limit(5)->get(['id', 'name']);
-        return view('dashboard.skripsi.index', compact('dosens'));
+        return view('dashboard.skripsi.index', compact('dosens', 'skripsi'));
     }
 
     public function storeInputTA(Request $request)
@@ -57,6 +58,11 @@ class SkripsiController extends Controller
         return $dataTable->render('dashboard.skripsi.list');
     }
 
+    public function listProgresMhs(SkripsiDataTable $dataTable)
+    {
+        return $dataTable->render('dashboard.skripsi.progresmhs');
+    }
+
     public function indexStatus()
     {
         $status = DB::table('statuses')->get('id', 'name');
@@ -65,7 +71,13 @@ class SkripsiController extends Controller
 
     public function indexMonitoring()
     {
-        $monitoring = DB::table('monitoring')->get('id', 'name');
+        $monitoring = DB::table('monitoring')->get(['deskripsi']);
+        return view('dashboard.skripsi.monitoring', compact('monitoring'));
+    }
+
+    public function addMonitoring()
+    {
+        $monitoring = DB::table('monitoring')->get(['deskripsi']);
         return view('dashboard.skripsi.monitoring', compact('monitoring'));
     }
 

@@ -225,7 +225,10 @@
                         <div class="card-header">
                             <div class="d-lg-flex justify-content-lg-between">
                                 <h4 class="card-title">Import Data Dari Excel</h4>
-                                <a href="{{ route('excel.mahasiswa') }}" class="btn btn-primary">Download Format</a>
+                                <form action="{{ route('excel.mahasiswa') }}" method="post">
+                                    @csrf
+                                    <button class="btn btn-primary" type="submit">Download Format</button>
+                                </form>
                             </div>
                         </div>
                         <div class="card-content">
