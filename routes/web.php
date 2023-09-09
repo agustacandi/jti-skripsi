@@ -130,6 +130,8 @@ Route::middleware('auth:web,dosen')->group(function () {
 
         Route::post('tambah-status', [StatusController::class, 'storeStatus'])->name('status.store');
 
+        Route::delete('delete-status/{id}', [StatusController::class, 'deleteStatus'])->name('status.delete');
+
         Route::post('accept-status/{id}', [StatusController::class, 'acceptStatus'])->name('status.accept');
         Route::post('reject-status/{id}', [StatusController::class, 'rejectStatus'])->name('status.reject');
 

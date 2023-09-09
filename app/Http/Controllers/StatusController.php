@@ -40,10 +40,12 @@ class StatusController extends Controller
         return redirect()->route('status.add')->with('message', 'Berhasil menambahkan status.');
     }
 
-    public function acceptStatus(string $id)
+    public function acceptStatus(Request $request)
     {
-        dd($id);
-        $status = Status::where('id', $id)->first();
+        $progress = $request->get('progress');
+        $deskripsi = $request->get('deskripsi');
+        $status = Status::where('progress', $progress)->where('deskripsi', $deskripsi)->first();
+        dd($status);
         // $request->validate([
         //     'name' => 'required',
         //     'user_id' => 'required',

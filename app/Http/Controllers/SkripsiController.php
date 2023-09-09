@@ -65,14 +65,15 @@ class SkripsiController extends Controller
 
     public function indexStatus()
     {
-        $status = DB::table('statuses')->get('id', 'name');
+        $status = DB::table('statuses')->get(['id', 'name']);
         return view('dashboard.skripsi.status', compact('status'));
     }
 
     public function indexMonitoring()
     {
-        $monitoring = DB::table('monitoring')->get(['deskripsi']);
-        return view('dashboard.skripsi.monitoring', compact('monitoring'));
+        $monitoring = DB::table('monitoring')->get();
+        $progress = DB::table('monitoring')->where('user_id', auth()->user()->id)->sum('progress');
+        return view('dashboard.skripsi.monitoring', compact('monitoring', 'progress'));
     }
 
     public function addMonitoring(Request $request)
@@ -82,6 +83,16 @@ class SkripsiController extends Controller
             'progress' => 'required|integer'
         ]);
 
+        DB::table('monitoring')->insert([
+            'deskripsi' => $request->deskripsi,
+            'progress' => $request->progress,
+            'user_id' => auth()->user()->id,
+            'dosen_id' => auth()->user()->dosen_id,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        return redirect()->route('monitoring.ta')->with('message', 'Berhasil menambahkan data.');
 
 
         // $monitoring = DB::table('monitoring')->get(['deskripsi']);

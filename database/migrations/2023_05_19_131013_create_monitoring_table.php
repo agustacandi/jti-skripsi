@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('monitoring', function (Blueprint $table) {
             $table->unsignedBigInteger('progress');
             $table->string('deskripsi');
-            $table->unsignedBigInteger('skripsi_id');
+            $table->unsignedBigInteger('skripsi_id')->nullable();
             $table->foreign('skripsi_id')->references('id')->on('skripsis')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

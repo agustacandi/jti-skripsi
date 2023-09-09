@@ -46,8 +46,8 @@
                                             {{-- progress bar --}}
                                             <label for="progress">Progress</label>
                                             <div class="progress mb-3" role="progressbar" aria-label="Example with label"
-                                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                <div class="progress-bar" style="width: 25%">25%</div>
+                                                aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">
+                                                <div class="progress-bar" style="width: 25%">{{ $progress }}%</div>
                                             </div>
                                             {{-- input deskripsi --}}
                                             <div class="form-group">
@@ -62,11 +62,11 @@
                                                 @enderror
                                             </div>
                                             <div class="form-group">
-                                                <label for="progres">Progress</label>
-                                                <input id="progres" type="number"
-                                                    class="form-control @error('progres') is-invalid @enderror"
-                                                    placeholder="Input progres...">
-                                                @error('progres')
+                                                <label for="progress">Progress</label>
+                                                <input id="progress" type="number"
+                                                    class="form-control @error('progress') is-invalid @enderror"
+                                                    placeholder="Input progres..." name="progress">
+                                                @error('progress')
                                                     <div class="invalid-feedback">
                                                         <i class="bx bx-radio-circle"></i>
                                                         {{ $message }}
@@ -97,25 +97,37 @@
                         <div class="card-header">
                             <h4 class="card-title">Riwayat Monitoring Skripsi</h4>
                         </div>
-                        {{-- option status --}}
                         <div class="card-content">
                             <div class="card-body">
                                 <div class="d-lg-flex justify-content-lg-between mt-2">
-                                    <table class="table">
+                                    <table class="table" id="monitoring-table">
                                         <thead>
                                             <tr>
-                                                <th scope="col">No</th>
-                                                <th scope="col">Deskripsi Monitoring</th>
-                                                <th scope="col">Point Progres</th>
+                                                <th>No</th>
+                                                <th>Deskripsi Monitoring</th>
+                                                <th>Point Progres</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         {{-- query id berubah otomatis --}}
                                         <tbody>
                                             @foreach ($monitoring as $row)
                                                 <tr>
-                                                    <th scope="row">{{ $loop->iteration }}</th>
+                                                    <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $row->deskripsi }}</td>
                                                     <td>{{ $row->progress }}</td>
+                                                    <td>
+                                                        <div class="d-flex" style="gap: 10px">
+                                                            <a href="' . route('dosen.edit', $row->id) . '"
+                                                                class="btn icon btn-sm btn-primary"><i
+                                                                    class="fas fa-pencil-alt"></i></a>
+                                                            <div class="btn icon btn-sm btn-danger" id="delete-button"
+                                                                data-progress="{{ $row->progress }}"
+                                                                data-deskripsi="{{ $row->deskripsi }}"><i
+                                                                    class="fas fa-trash"></i>
+                                                            </div>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -129,3 +141,40 @@
         </section>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $('#monitoring-table').on('click', '#delete-button', function() {
+            let {
+                progress,
+                deskripsi
+            } = $(this).data();
+
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah anda yakin ingin menghapus data?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, hapus!',
+            }).then(function(result) {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        method: 'DELETE',
+                        url: `{{ url('dashboard/status/delete-status/') }}?progress=${progress}&deskripsi=${deskripsi}`,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function(res) {
+                            Swal.fire(
+                                'Terhapus!',
+                                res.message,
+                                res.status
+                            )
+                            location.reload()
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+@endpush
