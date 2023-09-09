@@ -25,7 +25,8 @@ class DosenController extends Controller
      */
     public function create()
     {
-        return view('dashboard.dosen.add');
+        $prodies = DB::table('program_studis')->get(['id', 'name']);
+        return view('dashboard.dosen.add', compact('prodies'));
     }
 
     /**

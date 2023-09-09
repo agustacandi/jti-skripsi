@@ -110,6 +110,23 @@
                                                 @enderror
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                            <fieldset class="form-group">
+                                                <label for="program-studi">Program Studi</label>
+                                                <select class="form-select @error('program_studi') is-invalid @enderror"
+                                                    id="program-studi" name="program_studi_id">
+                                                    @foreach ($prodies as $prodi)
+                                                        <option value="{{ $prodi->id }}">{{ $prodi->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('program_studi')
+                                                    <div class="invalid-feedback">
+                                                        <i class="bx bx-radio-circle"></i>
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </fieldset>
+                                        </div>
                                         <div class="col-md-6 col-12">
                                             <fieldset class="form-group">
                                                 <label for="gender">Jenis Kelamin</label>

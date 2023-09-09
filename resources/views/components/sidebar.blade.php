@@ -124,17 +124,16 @@
                         <li class="submenu-item {{ Request::is('dashboard/skripsi/input-ta') ? 'active' : '' }}">
                             <a href="{{ route('input.ta') }}" class="submenu-link">Input Skripsi</a>
                         </li>
-                    @endif
 
-                    @if (Auth::guard('web')->check())
                         <li class="submenu-item {{ Request::is('dashboard/skripsi/monitoring') ? 'active' : '' }}">
                             <a href="{{ route('monitoring.ta') }}" class="submenu-link">Monitoring Skripsi</a>
                         </li>
+
+                        <li class="submenu-item {{ Request::is('dashboard/skripsi/history-ta') ? 'active' : '' }}">
+                            <a href="{{ route('history.ta') }}" class="submenu-link">Riwayat Input Skripsi</a>
+                        </li>
                     @endif
 
-                    <li class="submenu-item {{ Request::is('dashboard/skripsi/history-ta') ? 'active' : '' }}">
-                        <a href="{{ route('history.ta') }}" class="submenu-link">Riwayat Input Skripsi</a>
-                    </li>
 
                     <li
                         class="submenu-item {{ Request::is('dashboard/skripsi/list-progres-mahasiswa') ? 'active' : '' }}">

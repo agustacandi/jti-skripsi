@@ -67,4 +67,31 @@
 @endsection
 
 @push('scripts')
+    <script>
+        $('#logout-button').on('click', function() {
+
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah anda yakin?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                showLoaderOnConfirm: true,
+                closeOnConfirm: false,
+            }).then(function(result) {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        method: 'POST',
+                        url: '{{ route('logout') }}',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        },
+                        success: function(res) {
+                            location.reload()
+                        }
+                    })
+                }
+            })
+        })
+    </script>
 @endpush
