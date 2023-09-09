@@ -55,7 +55,7 @@ class SkripsiController extends Controller
 
     public function listTA(SkripsiDataTable $dataTable)
     {
-        return $dataTable->render('dashboard.skripsi.list');
+        return $dataTable->render('dashboard.skripsi.progresmhs');
     }
 
     public function listProgresMhs(SkripsiDataTable $dataTable)
@@ -82,8 +82,10 @@ class SkripsiController extends Controller
             'progress' => 'required|integer'
         ]);
 
-        $monitoring = DB::table('monitoring')->get(['deskripsi']);
-        return view('dashboard.skripsi.monitoring', compact('monitoring'));
+
+
+        // $monitoring = DB::table('monitoring')->get(['deskripsi']);
+        // return view('dashboard.skripsi.monitoring', compact('monitoring'));
     }
 
     public function indexPengajuan()

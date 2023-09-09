@@ -4,12 +4,6 @@
 
 @php
     $random_number = rand(1, 8);
-    $user = null;
-    if (Auth::check()) {
-        $user = Auth::user();
-    } elseif (Aut::guard('dosen')->check()) {
-        $user = Auth::guard('dosen')->user();
-    }
 @endphp
 
 @section('content')
@@ -45,14 +39,13 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="text-center">
-                                        <img
-                                            src="{{ $user->avatar != '' ? asset('storage/' . $user->avatar) : asset('assets/compiled/jpg/' . $random_number . '.jpg') }}"
+                                        <img src="{{ $user->avatar != '' ? asset('storage/' . $user->avatar) : asset('assets/compiled/jpg/' . $random_number . '.jpg') }}"
                                             alt="Avatar" class="avatar-custom mb-2">
                                         <h4>{{ $user->name }}</h4>
-                                        @if($status == 'mahasiswa')
-                                            <p>{{ $user->program_studi->name }} - {{$user->nim}}</p>
+                                        @if ($status == 'mahasiswa')
+                                            <p>{{ $user->program_studi->name }} - {{ $user->nim }}</p>
                                         @elseif($status == 'dosen')
-                                            <p>{{$user->nip }}</p>
+                                            <p>{{ $user->nip }}</p>
                                         @endif
                                     </div>
                                 </div>
@@ -61,39 +54,35 @@
                                         <div class="form-group">
                                             <label for="email">Email</label>
                                             <input type="email" id="email" class="form-control" placeholder="Email"
-                                                   name="email" value="{{ $user->email }}" readonly/>
+                                                name="email" value="{{ $user->email }}" readonly />
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="phone-number">No. Telepon</label>
-                                            <input type="text" id="phone-number" class="form-control"
-                                                   name="phone_number"
-                                                   placeholder="Contoh +628XXXX" value="{{ $user->phone_number }}"
-                                                   readonly/>
+                                            <input type="text" id="phone-number" class="form-control" name="phone_number"
+                                                placeholder="Contoh +628XXXX" value="{{ $user->phone_number }}" readonly />
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="angkatan">Tahun Angkatan</label>
                                             <input type="text" id="angkatan" class="form-control" name="angkatan"
-                                                   value="{{ $user->angkatan }}" readonly/>
+                                                value="{{ $user->angkatan }}" readonly />
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="gender">Jenis Kelamin</label>
                                             <input type="text" id="gender" class="form-control" name="gender"
-                                                   value="{{ $user->gender }}" readonly/>
+                                                value="{{ $user->gender }}" readonly />
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label for="address">Alamat</label>
-                                            <textarea id="address" class="form-control" spellcheck="false" rows="4"
-                                                      name="address"
-                                                      placeholder="Masukan Alamat..."
-                                                      readonly>{{ $user->address }}</textarea>
+                                            <textarea id="address" class="form-control" spellcheck="false" rows="4" name="address"
+                                                placeholder="Masukan Alamat..." readonly>{{ $user->address }}</textarea>
                                         </div>
                                     </div>
                                 </div>

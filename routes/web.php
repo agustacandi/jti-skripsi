@@ -146,7 +146,7 @@ Route::middleware('auth:web,dosen')->group(function () {
         $user = null;
         $status = null;
 
-        if (Auth::check()) {
+        if (Auth::guard('web')->check()) {
             $user = Auth::user();
             $status = 'mahasiswa';
         } else if (Auth::guard('dosen')->check()) {

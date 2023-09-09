@@ -47,7 +47,7 @@
                                             <label for="progress">Progress</label>
                                             <div class="progress mb-3" role="progressbar" aria-label="Example with label"
                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                <div class="progress-bar" style="width: 25%">37%</div>
+                                                <div class="progress-bar" style="width: 25%">25%</div>
                                             </div>
                                             {{-- input deskripsi --}}
                                             <div class="form-group">

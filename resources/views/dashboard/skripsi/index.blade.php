@@ -30,12 +30,12 @@
             </div>
         @endif
 
-        @if ($skripsi->status === 'PENDING')
+        @if ($skripsi !== null && $skripsi->status === 'PENDING')
             <div class="alert alert-primary">
                 <h4 class="alert-heading">Pending</h4>
                 <p>Status judul skripsi anda masih sedang di proses.</p>
             </div>
-        @elseif($skripsi->status === 'ACCEPTED')
+        @elseif($skripsi !== null && $skripsi->status === 'ACCEPTED')
             <div class="alert alert-success">
                 <h4 class="alert-heading">Skripsi anda diterima.</h4>
                 <p>Silahkan update progres skripsi anda secara berkala.</p>
