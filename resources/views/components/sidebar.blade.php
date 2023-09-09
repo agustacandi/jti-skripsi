@@ -134,16 +134,17 @@
                         </li>
                     @endif
 
+                    @if (Auth::guard('dosen')->check())
+                        <li
+                            class="submenu-item {{ Request::is('dashboard/skripsi/list-progres-mahasiswa') ? 'active' : '' }}">
+                            <a href="{{ route('list.progres.mahasiswa') }}" class="submenu-link">List Progres
+                                Mahasiswa</a>
+                        </li>
 
-                    <li
-                        class="submenu-item {{ Request::is('dashboard/skripsi/list-progres-mahasiswa') ? 'active' : '' }}">
-                        <a href="{{ route('list.progres.mahasiswa') }}" class="submenu-link">List Progres
-                            Mahasiswa</a>
-                    </li>
-
-                    <li class="submenu-item {{ Request::is('dashboard/skripsi/list-ta') ? 'active' : '' }}">
-                        <a href="{{ route('list.ta') }}" class="submenu-link">List Skripsi</a>
-                    </li>
+                        <li class="submenu-item {{ Request::is('dashboard/skripsi/list-ta') ? 'active' : '' }}">
+                            <a href="{{ route('list.ta') }}" class="submenu-link">List Skripsi</a>
+                        </li>
+                    @endif
 
                     {{-- <li class="submenu-item {{ Request::is('dashboard/skripsi/status') ? 'active' : '' }}">
                         <a href="{{ route('status.ta') }}" class="submenu-link">Status Skripsi</a>

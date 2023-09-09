@@ -127,7 +127,11 @@ Route::middleware('auth:web,dosen')->group(function () {
         Route::get('list-status', [StatusController::class, 'index'])->name('status.index');
         // Route::post('list-status/{status}', [StatusController::class, 'index'])->name('status.index');
         Route::get('tambah-status', [StatusController::class, 'addStatus'])->name('status.add');
+
         Route::post('tambah-status', [StatusController::class, 'storeStatus'])->name('status.store');
+
+        Route::post('accept-status/{id}', [StatusController::class, 'acceptStatus'])->name('status.accept');
+        Route::post('reject-status/{id}', [StatusController::class, 'rejectStatus'])->name('status.reject');
 
         // Route::get('history-ta', [SkripsiController::class, 'historyTA'])->name('history.ta');
         // Route::get('list-ta', [SkripsiController::class, 'listTA'])->name('list.ta');

@@ -35,7 +35,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped mb-0">
+                        <table class="table table-striped mb-0" id="status-table">
                             <thead>
                                 <tr>
                                     <th>Nama</th>
@@ -52,7 +52,7 @@
                                         <td class="text-bold-500">{{ $sts->name }}</td>
                                         <td>
                                             <button class="btn btn-primary" id="accept-button"
-                                                data-id="">Accept</button>
+                                                data-id="{{ $sts->id }}">Accept</button>
                                             <button class="btn btn-danger" id="reject-button" data-id="">Reject</button>
                                         </td>
                                     </tr>
@@ -68,7 +68,11 @@
 
 @push('scripts')
     <script>
-        $('#logout-button').on('click', function() {
+        $('#status-table').on('click', '#accept-button', function() {
+
+            let {
+                id
+            } = $(this).data();
 
             Swal.fire({
                 title: 'Konfirmasi',
@@ -82,7 +86,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         method: 'POST',
-                        url: '{{ route('logout') }}',
+                        url: `{{ url('dashboard/status/accept-status/') }}/${id}`,
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                         },

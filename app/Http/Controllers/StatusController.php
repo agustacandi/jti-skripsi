@@ -31,8 +31,38 @@ class StatusController extends Controller
             'user_id' => 'required',
         ]);
 
-        Status::create($request->all());
+        $data = $request->all();
+
+        $data['dosen_id'] = Auth::guard('web')->user()->dosen_id;
+
+        Status::create($data);
 
         return redirect()->route('status.add')->with('message', 'Berhasil menambahkan status.');
+    }
+
+    public function acceptStatus(string $id)
+    {
+        dd($id);
+        $status = Status::where('id', $id)->first();
+        // $request->validate([
+        //     'name' => 'required',
+        //     'user_id' => 'required',
+        // ]);
+
+        // Status::create($request->all());
+
+        return redirect()->route('status.index')->with('message', 'Berhasil menambahkan status.');
+    }
+
+    public function rejectStatus(string $id)
+    {
+        // $request->validate([
+        //     'name' => 'required',
+        //     'user_id' => 'required',
+        // ]);
+
+        // Status::create($request->all());
+
+        return redirect()->route('status.index')->with('message', 'Berhasil menambahkan status.');
     }
 }
