@@ -116,6 +116,11 @@ Route::middleware('auth:web,dosen')->group(function () {
 
         Route::post('monitoring', [SkripsiController::class, 'addMonitoring'])->name('monitoring.add');
 
+        Route::get('monitoring/edit', [SkripsiController::class, 'editMonitoring'])->name('monitoring.edit');
+        Route::put('monitoring/edit', [SkripsiController::class, 'updateMonitoring'])->name('monitoring.update');
+
+        Route::delete('monitoring/delete', [SkripsiController::class, 'deleteMonitoring'])->name('monitoring.delete');
+
         Route::get('pengajuan', [SkripsiController::class, 'indexPengajuan'])->name('pengajuan.ta');
     });
 

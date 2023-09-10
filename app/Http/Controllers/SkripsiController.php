@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\SkripsiDataTable;
 use App\Models\Skripsi;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -93,6 +94,51 @@ class SkripsiController extends Controller
         ]);
 
         return redirect()->route('monitoring.ta')->with('message', 'Berhasil menambahkan data.');
+
+
+        // $monitoring = DB::table('monitoring')->get(['deskripsi']);
+        // return view('dashboard.skripsi.monitoring', compact('monitoring'));
+    }
+
+    public function editMonitoring(Request $request)
+    {
+        $progress = $request->get('progress');
+        $deskripsi = $request->get('deskripsi');
+        $data = DB::table('monitoring')->where('progress', $progress)->where('deskripsi', $deskripsi)->first();
+
+        return view('dashboard.skripsi.editmonitoring', compact('data'));
+    }
+
+    public function updateMonitoring(Request $request)
+    {
+        $request->validate([
+            'deskripsi' => 'required|string|max:200',
+            'progress' => 'required|integer'
+        ]);
+
+        $progress = $request->get('progress');
+        $deskripsi = $request->get('deskripsi');
+        $progressValue = DB::table('monitoring')->where('user_id', auth()->user()->id)->sum('progress') + $progress;
+
+        DB::table('monitoring')->where('progress', $progress)->where('deskripsi', $deskripsi)->update([
+            'progress' => $request->progress,
+            'deskripsi' => $request->deskripsi,
+            'updated_at' => now()
+        ]);
+
+        return redirect()->route('monitoring.ta')->with('message', 'Berhasil memperbarui data.');
+    }
+
+    public function deleteMonitoring(Request $request)
+    {
+        $progress = $request->get('progress');
+        $deskripsi = $request->get('deskripsi');
+        DB::table('monitoring')->where('progress', $progress)->where('deskripsi', $deskripsi)->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Berhasil menghapus data.'
+        ]);
 
 
         // $monitoring = DB::table('monitoring')->get(['deskripsi']);

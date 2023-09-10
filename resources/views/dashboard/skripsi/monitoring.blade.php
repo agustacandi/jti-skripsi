@@ -23,7 +23,7 @@
             </div>
         </div>
         @if (\Illuminate\Support\Facades\Session::has('message'))
-            <div class="alert alert-danger alert-dismissible show fade">
+            <div class="alert alert-success alert-dismissible show fade">
                 {{ \Illuminate\Support\Facades\Session::get('message') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -47,7 +47,8 @@
                                             <label for="progress">Progress</label>
                                             <div class="progress mb-3" role="progressbar" aria-label="Example with label"
                                                 aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">
-                                                <div class="progress-bar" style="width: 25%">{{ $progress }}%</div>
+                                                <div class="progress-bar" style="width: {{ $progress }}%">
+                                                    {{ $progress }}%</div>
                                             </div>
                                             {{-- input deskripsi --}}
                                             <div class="form-group">
@@ -118,7 +119,7 @@
                                                     <td>{{ $row->progress }}</td>
                                                     <td>
                                                         <div class="d-flex" style="gap: 10px">
-                                                            <a href="' . route('dosen.edit', $row->id) . '"
+                                                            <a href="{{ url('dashboard/skripsi/monitoring/edit?progress=' . $row->progress . '&deskripsi=' . $row->deskripsi) }}"
                                                                 class="btn icon btn-sm btn-primary"><i
                                                                     class="fas fa-pencil-alt"></i></a>
                                                             <div class="btn icon btn-sm btn-danger" id="delete-button"
@@ -160,7 +161,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         method: 'DELETE',
-                        url: `{{ url('dashboard/status/delete-status/') }}?progress=${progress}&deskripsi=${deskripsi}`,
+                        url: `{{ url('dashboard/skripsi/monitoring/delete') }}?progress=${progress}&deskripsi=${deskripsi}`,
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                         },
